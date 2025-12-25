@@ -1,0 +1,28 @@
+{
+  "version": "2.0",
+  "routeKey": "GET /users/{id}",
+  "rawPath": "/users/123",
+  "rawQueryString": "active=true",
+  "headers": {
+    "host": "abc123.execute-api.us-east-1.amazonaws.com",
+    "user-agent": "curl/7.79.1"
+  },
+  "queryStringParameters": {
+    "active": "true"
+  },
+  "pathParameters": {
+    "id": "123"
+  },
+  "requestContext": {
+    "http": {
+      "method": "GET",
+      "path": "/users/123",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "189.xxx.xxx.xxx",
+      "userAgent": "curl/7.79.1"
+    },
+    "requestId": "ZxY123="
+  },
+  "body": "{\"name\":\"Kaue\"}",
+  "isBase64Encoded": false
+}
