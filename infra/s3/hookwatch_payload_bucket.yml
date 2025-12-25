@@ -1,0 +1,9 @@
+Resources:
+  HookWatchPayloadBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ${self:provider.environment.HOOK_WATCH_PAYLOAD_BUCKET}
+      LifecycleConfiguration:
+        Rules:
+          - Status: Enabled
+            ExpirationInDays: 7

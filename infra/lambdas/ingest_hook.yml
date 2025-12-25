@@ -1,0 +1,10 @@
+ingest_hook:
+  name: ${self:service}_ingest_hook_${self:provider.stage}
+  handler: src/lambdas/ingest_hook.handler
+  package:
+    include:
+      - src/lambdas/ingest_hook.py
+  events:
+    - httpApi:
+        path: /ingest/{project_id}
+        method: post

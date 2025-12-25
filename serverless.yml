@@ -1,0 +1,50 @@
+org: kauelima21
+
+service: hookwatch
+
+custom:
+  logRetentionPolicy:
+    dev:
+      days: 1
+    prod:
+      days: 14
+
+provider:
+  name: aws
+  runtime: python3.12
+  architecture: arm64
+  region: us-east-1
+  stage: ${opt:stage, "dev"}
+  logRetentionInDays: ${self:custom.logRetentionPolicy.${self:provider.stage}.days}
+  environment:
+    HOOK_WATCH_SINGLE_TABLE: ${self:service}-single-table-${self:provider.stage}
+    HOOK_WATCH_PAYLOAD_BUCKET: ${self:service}-payload-bucket-${self:provider.stage}
+  iam:
+    role:
+      statements:
+        - ${file(infra/iam/bucket_statement.yml)}
+        - ${file(infra/iam/table_statement.yml)}
+  httpApi:
+    cors:
+      allowedOrigins: "*"
+      allowedMethods:
+        - GET
+        - POST
+        - OPTIONS
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+
+package:
+  individually: true
+  exclude:
+    - "**"
+
+functions:
+#  - ${file(infra/lambdas/ingest_hook.yml)}
+#  - ${file(infra/lambdas/retry_hook.yml)}
+  - ${file(infra/lambdas/projects.yml)}
+
+resources:
+  - ${file(infra/dynamodb/${self:service}_single_table.yml)}
+  - ${file(infra/s3/${self:service}_payload_bucket.yml)}

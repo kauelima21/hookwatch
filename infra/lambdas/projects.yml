@@ -1,0 +1,17 @@
+projects:
+  name: ${self:service}_projects_${self:provider.stage}
+  handler: src/lambdas/projects.handler
+  package:
+    include:
+      - src/lambdas/projects.py
+      - src/controllers/projects_controller.py
+      - src/shared/contracts/*
+      - src/shared/http/*
+  events:
+    - httpApi:
+        path: /projects
+        method: post
+
+    - httpApi:
+        path: /projects
+        method: get

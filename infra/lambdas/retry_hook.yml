@@ -1,0 +1,10 @@
+retry_hook:
+  name: ${self:service}_retry_hook_${self:provider.stage}
+  handler: src/lambdas/retry_hook.handler
+  package:
+    include:
+      - src/lambdas/retry_hook.py
+  events:
+    - httpApi:
+        path: /retry/{event_id}
+        method: post
