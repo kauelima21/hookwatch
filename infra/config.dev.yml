@@ -1,0 +1,9 @@
+ARNs:
+  baseLambdaArn: arn:aws:lambda:{self:provider.region}:{aws:accountId}
+
+cognito:
+  PoolName: ${self:service}-UserPool-${self:provider.stage}
+
+logRetentionPolicy:
+  dev:
+    days: 1

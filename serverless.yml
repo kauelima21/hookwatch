@@ -3,13 +3,8 @@ org: kauelima21
 service: hookwatch
 
 custom:
-  cognito:
-    PoolName: ${self:service}-UserPool-${self:provider.stage}
-  logRetentionPolicy:
-    dev:
-      days: 1
-    prod:
-      days: 14
+  config: ${file(infra/config.${self:provider.stage}.yml)}
+  layers: ${file(infra/layers.yml)}
 
 provider:
   name: aws
@@ -17,7 +12,7 @@ provider:
   architecture: arm64
   region: us-east-1
   stage: ${opt:stage, "dev"}
-  logRetentionInDays: ${self:custom.logRetentionPolicy.${self:provider.stage}.days}
+  logRetentionInDays: ${self:custom.config.logRetentionPolicy.${self:provider.stage}.days}
   environment:
     HOOK_WATCH_SINGLE_TABLE: ${self:service}-single-table-${self:provider.stage}
     HOOK_WATCH_PAYLOAD_BUCKET: ${self:service}-payload-bucket-${self:provider.stage}
@@ -55,7 +50,8 @@ package:
 functions:
 #  - ${file(infra/lambdas/ingest_hook.yml)}
 #  - ${file(infra/lambdas/retry_hook.yml)}
-  - ${file(infra/lambdas/projects.yml)}
+#  - ${file(infra/lambdas/projects.yml)}
+  - ${file(infra/lambdas/auth.yml)}
 
 resources:
   - ${file(infra/dynamodb/${self:service}_single_table.yml)}
