@@ -1,6 +1,6 @@
 Resources:
   UserPool:
-    Type: AWS::COGNITO::UserPool
+    Type: AWS::Cognito::UserPool
     Properties:
       UserPoolName: ${self:custom.config.cognito.PoolName}
       DeletionProtection: ACTIVE

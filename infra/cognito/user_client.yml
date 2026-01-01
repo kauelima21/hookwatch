@@ -1,6 +1,6 @@
-Resource:
+Resources:
   UserPoolClient:
-    Type: AWS::COGNITO::UserPoolClient
+    Type: AWS::Cognito::UserPoolClient
     Properties:
       ClientName: ${self:service}-UserPoolClient-${self:provider.stage}
       UserPoolId: !Ref UserPool
