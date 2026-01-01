@@ -1,0 +1,9 @@
+import os
+
+
+class Env:
+    HOOK_WATCH_SINGLE_TABLE = os.getenv("HOOK_WATCH_SINGLE_TABLE")
+    HOOK_WATCH_PAYLOAD_BUCKET = os.getenv("HOOK_WATCH_PAYLOAD_BUCKET")
+    HOOK_WATCH_COGNITO_CLIENT_ID = os.getenv("HOOK_WATCH_COGNITO_CLIENT_ID")
+    STAGE = os.getenv("STAGE")
+    AWS_REGION = os.getenv("AWS_REGION")

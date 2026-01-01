@@ -1,0 +1,17 @@
+auth:
+  name: ${self:service}_auth_${self:provider.stage}
+  handler: src/lambdas/auth.handler
+  layers:
+    - ${self:custom.layers.DynoLayer.arn}
+  package:
+    include:
+      - src/lambdas/auth.py
+      - src/controllers/auth_controller.py
+      - src/shared/contracts/*
+      - src/shared/http/*
+      - src/shared/cognito.py
+      - src/shared/constants.py
+  events:
+    - httpApi:
+        path: /auth/sign-in
+        method: post

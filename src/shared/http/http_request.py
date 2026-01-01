@@ -12,3 +12,8 @@ class HttpRequest:
         self.body = json.loads(event.get("body", "{}"))
         self.raw_body = event.get("body", "{}")
         self.method = self.request_context["http"]["method"]
+
+        self.authenticated_user = self._extract_user_info_from_http_event_v2()
+
+    def _extract_user_info_from_http_event_v2(self) -> dict | None:
+        return self.request_context.get("authorizer", {}).get("jwt", {}).get("claims", {})
