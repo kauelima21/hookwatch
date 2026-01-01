@@ -3,6 +3,8 @@ org: kauelima21
 service: hookwatch
 
 custom:
+  cognito:
+    PoolName: ${self:service}-UserPool-${self:provider.stage}
   logRetentionPolicy:
     dev:
       days: 1
@@ -19,6 +21,9 @@ provider:
   environment:
     HOOK_WATCH_SINGLE_TABLE: ${self:service}-single-table-${self:provider.stage}
     HOOK_WATCH_PAYLOAD_BUCKET: ${self:service}-payload-bucket-${self:provider.stage}
+    STAGE: ${self:provider.stage}
+    HOOK_WATCH_COGNITO_CLIENT_ID: !Ref UserPoolClient
+    HOOK_WATCH_COGNITO_CLIENT_SECRET: !GetAtt UserPoolClient.ClientSecret
   iam:
     role:
       statements:
@@ -34,6 +39,13 @@ provider:
       allowedHeaders:
         - Content-Type
         - Authorization
+    authorizers:
+      CognitoAuthorizer:
+        type: jwt
+        identitySource: $request.header.Authorization
+        issuerUrl: !GetAtt UserPool.ProviderUrl
+        audience:
+          - !Ref UserPoolClient
 
 package:
   individually: true
@@ -48,3 +60,5 @@ functions:
 resources:
   - ${file(infra/dynamodb/${self:service}_single_table.yml)}
   - ${file(infra/s3/${self:service}_payload_bucket.yml)}
+  - ${file(infra/cognito/user_pool.yml)}
+  - ${file(infra/cognito/user_client.yml)}

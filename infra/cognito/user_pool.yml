@@ -1,0 +1,29 @@
+Resources:
+  UserPool:
+    Type: AWS::COGNITO::UserPool
+    Properties:
+      UserPoolName: ${self:custom.cognito.PoolName}
+      DeletionProtection: ACTIVE
+      MfaConfiguration: OFF
+      AutoVerifiedAttributes:
+        - email
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: false
+      UsernameAttributes:
+        - email
+      AccountRecoverySetting:
+        RecoveryMechanisms:
+          - Name: verified_email
+            Priority: 1
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+          RequireLowercase: false
+          RequireNumbers: false
+          RequireSymbols: false
+          RequireUppercase: false
+#      EmailConfiguration:
+#        From: ${env:COGNITO_EMAIL_FROM}
+#        # ReplyToEmailAddress: support@foodiary.com.br
+#        EmailSendingAccount: DEVELOPER
+#        SourceArn: ${env:SES_IDENTITY_ARN}
