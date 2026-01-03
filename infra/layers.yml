@@ -1,4 +1,4 @@
 DynoLayer:
   name: DynoLayer
-  version: 1
-  arn: ${self:custom.config.ARNs.baseLambdaArn}:${self:custom.layers.DynoLayer.name}:${self:custom.layers.DynoLayer.version}
+  version: 3
+  arn: ${self:custom.config.ARNs.baseLambdaArn}:layer:${self:custom.layers.DynoLayer.name}:${self:custom.layers.DynoLayer.version}

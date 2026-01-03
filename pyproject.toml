@@ -5,7 +5,7 @@ description = "Add your description here"
 requires-python = ">=3.12"
 dependencies = [
     "pytest>=9.0.2",
-    "dynolayer[aws]>=0.6.2",
+    "dynolayer[aws]>=0.7.1",
     "python-dotenv>=1.2.1",
     "boto3-stubs~=1.42.16",
 ]

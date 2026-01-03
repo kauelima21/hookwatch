@@ -31,11 +31,11 @@ Resources:
               KeyType: RANGE
           Projection:
             ProjectionType: ALL
-        - IndexName: gs21
+        - IndexName: gsi2
           KeySchema:
-            - AttributeName: gs21pk
+            - AttributeName: gsi2pk
               KeyType: HASH
-            - AttributeName: gs21sk
+            - AttributeName: gsi2sk
               KeyType: RANGE
           Projection:
             ProjectionType: ALL

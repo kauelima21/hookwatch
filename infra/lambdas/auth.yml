@@ -7,11 +7,22 @@ auth:
     include:
       - src/lambdas/auth.py
       - src/controllers/auth_controller.py
+      - src/models/auth.py
+      - src/models/user.py
       - src/shared/contracts/*
       - src/shared/http/*
       - src/shared/cognito.py
       - src/shared/constants.py
+      - src/shared/errors.py
   events:
     - httpApi:
         path: /auth/sign-in
+        method: post
+
+    - httpApi:
+        path: /auth/sign-up
+        method: post
+
+    - httpApi:
+        path: /auth/confirm-registration
         method: post

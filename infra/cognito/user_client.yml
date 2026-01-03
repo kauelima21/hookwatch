@@ -4,12 +4,12 @@ Resources:
     Properties:
       ClientName: ${self:service}-UserPoolClient-${self:provider.stage}
       UserPoolId: !Ref UserPool
-      GenerateSecret: true
+#      GenerateSecret: true
       ExplicitAuthFlows:
         - ALLOW_USER_PASSWORD_AUTH
       TokenValidityUnits:
         AccessToken: hours
       AccessTokenValidity: 12
-      RefreshTokenRotation:
-        Feature: ENABLED
-        RetryGracePeriodSeconds: 0
+#      RefreshTokenRotation:
+#        Feature: ENABLED
+#        RetryGracePeriodSeconds: 0

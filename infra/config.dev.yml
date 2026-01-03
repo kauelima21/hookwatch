@@ -1,5 +1,5 @@
 ARNs:
-  baseLambdaArn: arn:aws:lambda:{self:provider.region}:{aws:accountId}
+  baseLambdaArn: arn:aws:lambda:${self:provider.region}:${aws:accountId}
 
 cognito:
   PoolName: ${self:service}-UserPool-${self:provider.stage}

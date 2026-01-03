@@ -10,6 +10,8 @@ provider:
   name: aws
   runtime: python3.12
   architecture: arm64
+  memorySize: 512
+  timeout: 15
   region: us-east-1
   stage: ${opt:stage, "dev"}
   logRetentionInDays: ${self:custom.config.logRetentionPolicy.${self:provider.stage}.days}
@@ -18,7 +20,6 @@ provider:
     HOOK_WATCH_PAYLOAD_BUCKET: ${self:service}-payload-bucket-${self:provider.stage}
     STAGE: ${self:provider.stage}
     HOOK_WATCH_COGNITO_CLIENT_ID: !Ref UserPoolClient
-    HOOK_WATCH_COGNITO_CLIENT_SECRET: !GetAtt UserPoolClient.ClientSecret
   iam:
     role:
       statements:
@@ -38,7 +39,7 @@ provider:
       CognitoAuthorizer:
         type: jwt
         identitySource: $request.header.Authorization
-        issuerUrl: !GetAtt UserPool.ProviderUrl
+        issuerUrl: !GetAtt UserPool.ProviderURL
         audience:
           - !Ref UserPoolClient
 
