@@ -1,4 +1,6 @@
 from src.models.auth import Auth
+from src.models.organization import Organization
+from src.models.organization_user import OrganizationUser
 from src.models.user import User
 from src.shared.contracts.base_error import BaseError
 from src.shared.contracts.controller import BaseController
@@ -61,6 +63,17 @@ class AuthController(BaseController):
             user = User().find_by_email(email)
             user.status = "active"
             user.save()
+
+            organization = Organization()
+            organization.name = user.full_name
+            organization.save()
+
+            organization_user = OrganizationUser()
+            organization_user.organization_id = organization.organization_id
+            organization_user.user = email
+            organization_user.organization_name = organization.name
+            organization_user.user_full_name = user.full_name
+            organization_user.save()
 
             return self.res.status(200).send("User confirmed")
         except BaseError as e:

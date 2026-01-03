@@ -9,6 +9,8 @@ auth:
       - src/controllers/auth_controller.py
       - src/models/auth.py
       - src/models/user.py
+      - src/models/organization.py
+      - src/models/organization_user.py
       - src/shared/contracts/*
       - src/shared/http/*
       - src/shared/cognito.py
