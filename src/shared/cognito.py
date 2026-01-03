@@ -24,3 +24,24 @@ class Cognito:
             expires_in=auth_result["ExpiresIn"],
             token_type=auth_result["TokenType"],
         )
+
+    def sign_up(self, email: str, password: str):
+        response = self._client.sign_up(
+            ClientId=Env.HOOK_WATCH_COGNITO_CLIENT_ID,
+            Username=email,
+            Password=password,
+            UserAttributes=[
+                {"Name": "email", "Value": email},
+            ],
+        )
+
+        return response["UserSub"]
+
+    def confirm_sign_up(self, email: str, confirmation_code: str):
+        response = self._client.confirm_sign_up(
+            ClientId=Env.HOOK_WATCH_COGNITO_CLIENT_ID,
+            Username=email,
+            ConfirmationCode=confirmation_code,
+        )
+
+        return response

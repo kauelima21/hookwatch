@@ -10,6 +10,8 @@ def handler(event: dict, _):
 
     router = Router()
 
-    router.get("/auth/sign-in", AuthController, "sign_in")
+    router.post("/auth/sign-in", AuthController, "sign_in")
+    router.post("/auth/sign-up", AuthController, "sign_up")
+    router.post("/auth/confirm-registration", AuthController, "confirm_registration")
 
     return router.dispatch(http_request, http_response)

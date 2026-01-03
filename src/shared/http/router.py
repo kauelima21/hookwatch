@@ -1,3 +1,5 @@
+import logging
+
 from src.shared.http.http_request import HttpRequest
 from src.shared.http.http_response import HttpResponse
 
@@ -15,6 +17,7 @@ class Router:
 
         route = self.routes.get((method, path))
         if not route:
+            logging.warning(f"Route not found: {method} {path}")
             return response.status(404).send("Not Found")
 
         handler, action = route
