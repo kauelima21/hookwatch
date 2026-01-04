@@ -1,5 +1,7 @@
 import json
 
+from src.shared.http.utils import json_dumps
+
 
 class HttpResponse:
     def __init__(self) -> None:
@@ -20,7 +22,7 @@ class HttpResponse:
 
     def json(self, body: dict | list):
         self.headers["Content-Type"] = "application/json"
-        self.body = json.dumps(body)
+        self.body = json_dumps(body)
         return self._finalize()
 
     def set(self, key: str, value: str):

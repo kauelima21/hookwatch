@@ -5,7 +5,7 @@ from dynolayer import DynoLayer
 from src.shared.constants import Env
 
 
-class Organization(DynoLayer):
+class Project(DynoLayer):
     def __init__(self) -> None:
         super().__init__(Env.HOOK_WATCH_SINGLE_TABLE)
 
@@ -13,13 +13,13 @@ class Organization(DynoLayer):
         self.gsi1pk = None
         self.sk = None
         self.pk = None
-        self.organization_id = str(uuid4())
-        self.type = "ORGANIZATION"
+        self.project_id = str(uuid4())
+        self.type = "PROJECT"
 
     def save(self):
-        self.pk = f"ORG#{self.organization_id}"
+        self.pk = f"PROJECT#{self.project_id}"
         self.sk = "META"
-        self.gsi1pk = "ORG"
-        self.gsi1sk = f"ORG#{self.organization_id}"
+        self.gsi1pk = "PROJECT"
+        self.gsi1sk = f"PROJECT#{self.project_id}"
 
         return super().save()

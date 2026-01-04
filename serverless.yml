@@ -51,7 +51,7 @@ package:
 functions:
 #  - ${file(infra/lambdas/ingest_hook.yml)}
 #  - ${file(infra/lambdas/retry_hook.yml)}
-#  - ${file(infra/lambdas/projects.yml)}
+  - ${file(infra/lambdas/projects.yml)}
   - ${file(infra/lambdas/auth.yml)}
 
 resources:

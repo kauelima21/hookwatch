@@ -1,17 +1,29 @@
 projects:
   name: ${self:service}_projects_${self:provider.stage}
   handler: src/lambdas/projects.handler
+  layers:
+    - ${self:custom.layers.DynoLayer.arn}
   package:
     include:
       - src/lambdas/projects.py
       - src/controllers/projects_controller.py
-      - src/shared/contracts/*
-      - src/shared/http/*
+      - src/models/**
+      - src/shared/**
   events:
     - httpApi:
-        path: /projects
+        path: /organizations/{organization_id}/projects
         method: post
+        authorizer:
+          name: CognitoAuthorizer
 
     - httpApi:
-        path: /projects
+        path: /organizations/{organization_id}/projects
         method: get
+        authorizer:
+          name: CognitoAuthorizer
+
+    - httpApi:
+        path: /organizations/{organization_id}/projects/{project_id}
+        method: get
+        authorizer:
+          name: CognitoAuthorizer
