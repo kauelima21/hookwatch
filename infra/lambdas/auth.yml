@@ -11,11 +11,7 @@ auth:
       - src/models/user.py
       - src/models/organization.py
       - src/models/organization_user.py
-      - src/shared/contracts/*
-      - src/shared/http/*
-      - src/shared/cognito.py
-      - src/shared/constants.py
-      - src/shared/errors.py
+      - src/shared/**
   events:
     - httpApi:
         path: /auth/sign-in

@@ -1,4 +1,5 @@
 from src.controllers.auth_controller import AuthController
+from src.shared.contracts.base_error import BaseError
 from src.shared.http.http_request import HttpRequest
 from src.shared.http.http_response import HttpResponse
 from src.shared.http.router import Router
@@ -8,10 +9,13 @@ def handler(event: dict, _):
     http_request = HttpRequest(event)
     http_response = HttpResponse()
 
-    router = Router()
+    try:
+        router = Router()
 
-    router.post("/auth/sign-in", AuthController, "sign_in")
-    router.post("/auth/sign-up", AuthController, "sign_up")
-    router.post("/auth/confirm-registration", AuthController, "confirm_registration")
+        router.post("/auth/sign-in", AuthController, "sign_in")
+        router.post("/auth/sign-up", AuthController, "sign_up")
+        router.post("/auth/confirm-registration", AuthController, "confirm_registration")
 
-    return router.dispatch(http_request, http_response)
+        return router.dispatch(http_request, http_response)
+    except BaseError as e:
+        return http_response.status(e.status_code).send(e.error_message)
